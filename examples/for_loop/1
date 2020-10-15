@@ -1,0 +1,22 @@
+basedir:/home/sxw228/lib/ivl
+module:/home/sxw228/lib/ivl/system.vpi
+module:/home/sxw228/lib/ivl/vhdl_sys.vpi
+module:/home/sxw228/lib/ivl/vhdl_textio.vpi
+module:/home/sxw228/lib/ivl/v2005_math.vpi
+module:/home/sxw228/lib/ivl/va_math.vpi
+generation:2005
+generation:no-specify
+generation:assertions
+generation:xtypes
+generation:io-range-error
+generation:no-strict-ca-eval
+generation:no-strict-expr-width
+generation:shared-loop-index
+generation:no-verilog-ams
+generation:icarus-misc
+warnings:n
+ignore_missing_modules:false
+out:a.out
+iwidth:32
+widthcap:65536
+ivlpp:/home/sxw228/lib/ivl/ivlpp  -L -F"/tmp/ivrlg26686e98c" -P"/tmp/ivrli6686e98c"
