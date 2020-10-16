@@ -1127,7 +1127,7 @@ void Design::recurseTraversal(NetProc* tn , int d )
 				{
 					//如果base是用常数表示的，则为NetEConst类型，是NetExpr子类
 					//如果base中有信号，NetESignal。calculates the index of the word in thearray. It may only be nil if the expression refers to the whole array
-					
+
 					char * type_name0= new char [20];           //用来存type_info
 					std::strcpy(type_name0,typeid(*(lval->get_base())).name());
 					if (!std::strcmp(type_name0,"9NetEConst"))              //下标为常数
@@ -1150,14 +1150,11 @@ void Design::recurseTraversal(NetProc* tn , int d )
 						printf("var %s[%s] in line %d is the l_val of Assign ! \n:" , (net->name().str()),base_expr->sig()->name().str(),tn->get_lineno());
 					}
 					delete[] type_name0;
-
 				}
 				else{
 					tab(depth);
 					printf("var %s[%d:0] in line %d is the l_val of Assign !\n:" , (net->name().str()),wid-1,tn->get_lineno());
 				}
-				
-			
 			}
 			else if (!std::strcmp(type_name,"11NetAssignNB"))		//非阻塞赋值
 			{
@@ -1176,7 +1173,6 @@ void Design::recurseTraversal(NetProc* tn , int d )
 				unsigned base_num=0;
 				for (int i=0;i<len;i++)
 				{	base_num+=((base_expr->value().get(i))<<i);
-					
 				}
 				tab(depth);
 				printf("var %s[%d:%d] in line %d is the l_val of AssignNB ! \n:" , (net->name().str()),base_num+wid-1,base_num,tn->get_lineno());
@@ -1185,7 +1181,6 @@ void Design::recurseTraversal(NetProc* tn , int d )
 				tab(depth);
 				printf("var %s[%d:0] in line %d is the l_val of Assign !\n:" , (net->name().str()),wid-1,tn->get_lineno());
 				}
-				
 			}
 			else if (!std::strcmp(type_name,"9NetCondit"))		    //条件语句 if else中写同一bit，不算冲突
 			{
@@ -1196,17 +1191,14 @@ void Design::recurseTraversal(NetProc* tn , int d )
 				recurseTraversal(con->if_clause(),depth);  
 				//else句递归
 				recurseTraversal(con->else_clause(),depth);
-				
 			}
 			else if (!std::strcmp(type_name,"7NetCase"))		    //case语句
 			{
 				NetCase* cas = dynamic_cast<NetCase *>(tn);
 				tab(depth);
 				printf("CASE in line %d !\n:" ,tn->get_lineno());
-				
 				size_t len = cas->nitems();     //分支个数
     			for (size_t i =0; i < len; i ++) {
-
         			recurseTraversal(const_cast<NetProc*>(cas->stat(i)),depth);         //const传不了，得先转换 
     			}
 			}
@@ -1239,22 +1231,16 @@ void Design::recurseTraversal(NetProc* tn , int d )
 				unsigned base_num=0;     //循环初始值
 				for (int i=0;i<len;i++)
 				{	base_num+=((base_expr->value().get(i))<<i);
-					
 				}
 				NetEBComp* cmp_expr=dynamic_cast<NetEBComp *>(fo->condition_);	
-
-
 				tab(depth);
 				printf("the index of FOR_LOOP is : %s[%d:%d] , initial value: %d  !\n:" ,fo->index_->name().str(),fo->index_->slice_dims_[0].get_msb(),fo->index_->slice_dims_[0].get_lsb(),base_num);
 				//NetForLoop* fo = dynamic_cast<NetForLoop *>(tn);
 				//NetForLoop* fo = dynamic_cast<NetForLoop *>(tn);
 				//更新操作的内容
 				recurseTraversal(fo->step_statement_,depth);
-
 				//循环体的内容
 				recurseTraversal(fo->statement_,depth);
-
-
 			}
 			else if (!std::strcmp(type_name,"8NetUTask"))		    //task不处理了，会对应一个block，和对应的input,output赋值，我还不清楚机制
 			{
@@ -1262,7 +1248,6 @@ void Design::recurseTraversal(NetProc* tn , int d )
 				tab(depth);
 				printf("in line %d is Task !\n:" ,tn->get_lineno());
 				//printf("in line %d is Task , name is : %s !\n:" ,tn->get_lineno(),ta->name());
-
 				//不太会
 				//recurseTraversal(ta->next_,depth);          //我改了友元类
 			}
@@ -1271,10 +1256,8 @@ void Design::recurseTraversal(NetProc* tn , int d )
 				tab(depth);
 				printf("in line %d is %s !\n:" ,tn->get_lineno(),type_name);
 			}
-			
 			delete[] type_name;
         }       
-	  	
     } 
 
 
